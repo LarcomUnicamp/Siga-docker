@@ -37,41 +37,43 @@
         <extension module="org.wildfly.extension.undertow"/>
     </extensions>
     <system-properties>
+	<property name="siga.ambiente" value="prod"/>
         
-        <property name="siga.jwt.secret" value="***REPLACE-WITH-RANDOM-GUID***"/>
-        <property name="siga.sinc.password" value="***REPLACE-WITH-RANDOM-GUID***"/>
-        <!-- <property name="sigaex.webdav.senha" value="***REPLACE-WITH-RANDOM-GUID***"/> (desabilitado porque estamos com problemas no webdav) -->
+        <property name="siga.jwt.secret" value="3dc2f10b50b739bf42bc8f5f4a9f4afafc7796c8dcff40fa11d92f90da1eea87"/>
+        <property name="siga.sinc.password" value="3dc2f10b50b739bf42bc8f5f4a9f4afafc7796c8dcff40fa11d92f90da1eea87"/>
+        <!--<property name="sigaex.webdav.senha" value="10d4691d-98d3-4ce3-94bd-e395880b3842"/>-->
 
-        <property name="siga.recaptcha.key" value="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"/>
-        <property name="siga.recaptcha.pwd" value="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"/>
+        <property name="siga.recaptcha.key" value="6LdCt0ghAAAAAB8y5faSJZOy_CtaWVqwqUy5iqqF"/>
+        <property name="siga.recaptcha.pwd" value="6LdCt0ghAAAAAC37QGg9vimbJUGXL69W8YOACSc1"/>
 
-        <property name="siga.cabecalho.titulo" value="Justiça Federal"/>
+        <property name="siga.cabecalho.titulo" value="Unicamp-Larcom"/>
         <property name="siga.cabecalho.logo" value="/siga/imagens/logo-trf2-38px.png"/>
 
-        <property name="sigaex.modelos.cabecalho.brasao" value="contextpath/imagens/brasaoColoridoTRF2.png"/>
-        <property name="sigaex.modelos.cabecalho.titulo" value="PODER JUDICIÁRIO"/>
-        <property name="sigaex.modelos.cabecalho.subtitulo" value="JUSTIÇA FEDERAL"/>
+        <property name="sigaex.modelos.cabecalho.brasao" value="https://www.ic.unicamp.br/~stolfi/EXPORT/projects/ic-logos/2010-03-16/logotipos/png/logo-unicamp-name-line-blk-red-0480.png"/>
+        <property name="sigaex.modelos.cabecalho.titulo" value="UNICAMP"/>
+        <property name="sigaex.modelos.cabecalho.subtitulo" value="LARCOM"/>
 
         <property name="siga.relat.brasao" value="brasao.png"/>
-        <property name="siga.relat.titulo" value="PODER JUDICIÁRIO"/>
-        <property name="siga.relat.subtitulo" value="JUSTIÇA FEDERAL"/>
+        <property name="siga.relat.titulo" value="UNICAMP"/>
+        <property name="siga.relat.subtitulo" value="LARCOM"/>
 
-        <property name="sigaex.carimbo.texto.superior" value="Justiça Federal"/>
+        <property name="sigaex.carimbo.texto.superior" value="LARCOM"/>
 
         <property name="sigaex.redis.database" value="1"/>
         <property name="sigaex.redis.master.host" value="redisserver"/>
         <property name="sigaex.redis.master.port" value="6379"/>
-        <property name="sigaex.redis.password" value="***REPLACE-WITH-RANDOM-GUID***"/>
+        <property name="sigaex.redis.password" value="3dc2f10b50b739bf42bc8f5f4a9f4afafc7796c8dcff40fa11d92f90da1eea87"/>
         <property name="sigaex.redis.slave.host" value="redisserver"/>
         <property name="sigaex.redis.slave.port" value="6379"/>
 
-        <property name="siga.smtp" value="emailserver"/>
-        <property name="siga.smtp.porta" value="1025"/>
+        <property name="siga.smtp" value="mail.edukas.com.br"/>
+        <property name="siga.smtp.porta" value="587"/>
+	<property name="siga.smtp.starttls.enable" value="true"/>
         <property name="siga.smtp.auth" value="true"/>
-        <property name="siga.smtp.auth.usuario" value="siga"/>
-        <property name="siga.smtp.auth.senha" value="siga"/>
+        <property name="siga.smtp.auth.usuario" value="sistema"/>
+        <property name="siga.smtp.auth.senha" value="%BL3&amp;zEDjYT$nt*2"/>
         <property name="siga.smtp.debug" value="false"/>
-        <property name="siga.smtp.usuario.remetente" value="Administrador do Siga&lt;siga@exemplo.com.br>"/>
+        <property name="siga.smtp.usuario.remetente" value="Administrador do Siga&lt;sistema@edukas.com.br>"/>
 
         <property name="siga.armazenamento.arquivo.tipo" value="TABELA"/>
         <property name="sigaex.upload.dir.temp" value="/tmp"/>
