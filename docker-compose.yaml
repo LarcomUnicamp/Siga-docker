@@ -17,6 +17,7 @@ services:
     environment:
       TZ: "America/Sao_Paulo"
       JBOSS_USER: "root"
+      JAVA_OPTS: "%JAVA_OPTS% -Xmx2048m -Xms1024m"
     volumes:
       - log-volume:/var/log
       - tmp-volume:/var/tmp/siga
