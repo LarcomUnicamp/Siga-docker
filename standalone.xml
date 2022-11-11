@@ -38,6 +38,8 @@
     </extensions>
     <system-properties>
 	<property name="siga.ambiente" value="prod"/>
+	<property name="sigaex.autenticidade.url" value="SUAURLAQUI"/>
+	<property name="sigaex.url" value="SEUDOMINIOAQUI"/>
         
         <property name="siga.jwt.secret" value="3dc2f10b50b739bf42bc8f5f4a9f4afafc7796c8dcff40fa11d92f90da1eea87"/>
         <property name="siga.sinc.password" value="3dc2f10b50b739bf42bc8f5f4a9f4afafc7796c8dcff40fa11d92f90da1eea87"/>
@@ -569,7 +571,7 @@
                 </host>
             </server>
             <servlet-container name="default">
-                <jsp-config development="true"/>
+                <jsp-config development="false" tag-pooling="false" check-interval="1" modification-test-interval="1" recompile-on-fail="true"/>
                 <websockets/>
             </servlet-container>
             <handlers>
