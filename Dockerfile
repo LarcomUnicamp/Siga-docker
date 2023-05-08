@@ -47,7 +47,7 @@ RUN echo "downloading vizservice.war" && curl -s https://api.github.com/repos/pr
 RUN mv vizservice.war ${JBOSS_HOME}/standalone/deployments/
 
 #--- DOWNLOAD LATEST VERSION FROM GITHUB
-RUN echo "downloading siga.war, sigaex.war and sigawf.war" && echo "https://github.com/carlosfiori44/Siga/releases/download/sigatag/siga.war https://github.com/carlosfiori44/Siga/releases/download/sigatag/sigaex.war https://github.com/carlosfiori44/Siga/releases/download/sigatag/sigawf.war" \
+RUN echo "downloading siga.war, sigaex.war and sigawf.war" && echo "https://github.com/LarcomUnicamp/Siga/releases/download/sigatagNova/siga.war https://github.com/LarcomUnicamp/Siga/releases/download/sigatagNova/sigaex.war https://github.com/LarcomUnicamp/Siga/releases/download/sigatagNova/sigawf.war" \
   | xargs wget -q
 
 #--- DEPLOY DO ARQUIVO .WAR ---

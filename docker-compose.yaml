@@ -9,15 +9,18 @@ services:
       - mysqlserver
       - redisserver
     command: ["bin/wait-for-it.sh mysqlserver:3306 -t 120 && jboss-eap-7.2/bin/standalone.sh"] 
+    expose:
+      - "8180" 
+      - "8043" 
     ports:
-      - "6789:8080"
-      - "8080:8080"
+      - "8180:8080"
+      - "8043:8443"
       #- "9990:9990"
       #- "8787:8787"
     environment:
       TZ: "America/Sao_Paulo"
       JBOSS_USER: "root"
-      JAVA_OPTS: "%JAVA_OPTS% -Xmx2048m -Xms1024m"
+      JAVA_OPTS: "%JAVA_OPTS% -Xms1024m -Xmx3072m"
     volumes:
       - log-volume:/var/log
       - tmp-volume:/var/tmp/siga
@@ -44,7 +47,7 @@ services:
 
   redisserver:
     container_name: redisserver
-    command: redis-server --requirepass ***REPLACE-WITH-RANDOM-GUID***
+    command: redis-server --requirepass 1ef99a46-11d4-45a7-8d7a-272c5c8828bf
     image: redis:alpine
     expose:
       - "6379"
