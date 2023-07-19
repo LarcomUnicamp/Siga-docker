@@ -46,12 +46,12 @@
 
 		
         
-        <property name="siga.jwt.secret" value="1ef99a46-11d4-45a7-8d7a-272c5c8828bf"/>
-        <property name="siga.sinc.password" value="1ef99a46-11d4-45a7-8d7a-272c5c8828bf"/>
+        <property name="siga.jwt.secret" value="RANDOM_GUID"/>
+        <property name="siga.sinc.password" value="RANDOM_GUID"/>
       
 
-        <property name="siga.recaptcha.key" value="6LfOjw0lAAAAAIJRJFpg-GBtA4z-6NDLGJG2m-vT"/>
-        <property name="siga.recaptcha.pwd" value="6LfOjw0lAAAAAGnsy5jtfvvkSB2i7seY7zQbz4uX"/>
+        <property name="siga.recaptcha.key" value="CHAVE PUBLICA"/>
+        <property name="siga.recaptcha.pwd" value="CHAVE PRIVADA"/>
 
         <property name="siga.cabecalho.titulo" value="UNICAMP LARCOM"/>
         <property name="siga.cabecalho.logo" value="/siga/imagens/brasao@2x-sjrp.png"/>
@@ -69,7 +69,7 @@
         <property name="sigaex.redis.database" value="1"/>
         <property name="sigaex.redis.master.host" value="redisserver"/>
         <property name="sigaex.redis.master.port" value="6379"/>
-        <property name="sigaex.redis.password" value="1ef99a46-11d4-45a7-8d7a-272c5c8828bf"/>
+        <property name="sigaex.redis.password" value="RANDOM_GUID"/>
         <property name="sigaex.redis.slave.host" value="redisserver"/>
         <property name="sigaex.redis.slave.port" value="6379"/>
 	
@@ -78,7 +78,7 @@
         <property name="siga.smtp.starttls.enable" value="true"/>
         <property name="siga.smtp.auth" value="true"/>
         <property name="siga.smtp.auth.usuario" value="sistema@edukas.com.br"/>
-        <property name="siga.smtp.auth.senha" value="%BL3&amp;zEDjYT$nt*2"/>
+        <property name="siga.smtp.auth.senha" value="SENHA"/>
         <property name="siga.smtp.debug" value="false"/>
         <property name="siga.smtp.usuario.remetente" value="Administrador do Siga&lt;sistema@edukas.com.br>"/>
 
@@ -95,7 +95,6 @@
         <property name="sigaex.carimbo.url" value="https://ittrufusion.appspot.com/api/v1"/>
 
 		<property name="sigaex.carimbo.public.key" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAllav1+eJ3w5Idge/vQ1zZSziGiuOUBviZhcw0JZ9Bg90zG7Uz3wFGQeKnG0DNTBKwjC3MHI7AZy4G+ji35J+gp+0aZLDkuwx17JDuJfuJe6gHRlfcm50McuLL0vaU5gQ2InAo7FssjuOuLp9c3FGBGmiDFK1vUhKwdvY14inYzrZaHSVsppSYX9zjnhQiQxRnLzFzkZsZkl/Orz2O9rvmJx048lcmnOiLvm3ge7Jq2KZHIYzdsw5F3VGtlhLFBZ49g6Rmp4ClgPtpwDOGj78oyJVxLW3XXN1VP1JnActFkNlmBNi+8cUZ8IX15j+FDOL9+tQR+FMC7wtHypshR5zVQIDAQAB"/>
-		<property name="sigaex.carimbo.sistema" value="siga-docker"/>
 		<property name="ckeditor.url" value="/ckeditor/ckeditor/ckeditor.js"/>
 		
   </system-properties>
