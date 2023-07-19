@@ -47,13 +47,17 @@ RUN echo "downloading vizservice.war" && curl -s https://api.github.com/repos/pr
 RUN mv vizservice.war ${JBOSS_HOME}/standalone/deployments/
 
 #--- DOWNLOAD LATEST VERSION FROM GITHUB
-RUN echo "downloading siga.war, sigaex.war and sigawf.war" && echo "https://github.com/LarcomUnicamp/Siga/releases/download/sigatagNova/siga.war https://github.com/LarcomUnicamp/Siga/releases/download/sigatagNova/sigaex.war https://github.com/LarcomUnicamp/Siga/releases/download/sigatagNova/sigawf.war" \
+RUN echo "downloading siga.war, sigaex.war, sigawf.war , sigasr.war , sigagc.war and sigatp.war" && echo "https://github.com/LarcomUnicamp/siga-doc-larcom/releases/download/v11.0.3.18/siga.war https://github.com/LarcomUnicamp/siga-doc-larcom/releases/download/v11.0.3.18/sigaex.war https://github.com/LarcomUnicamp/siga-doc-larcom/releases/download/v11.0.3.18/sigawf.war https://github.com/LarcomUnicamp/siga-doc-larcom/releases/download/v11.0.3.18/sigasr.war https://github.com/LarcomUnicamp/siga-doc-larcom/releases/download/v11.0.3.18/sigagc.war https://github.com/LarcomUnicamp/siga-doc-larcom/releases/download/v11.0.3.18/sigatp.war" \
   | xargs wget -q
 
 #--- DEPLOY DO ARQUIVO .WAR ---
+
 RUN mv siga.war ${JBOSS_HOME}/standalone/deployments/
 RUN mv sigaex.war ${JBOSS_HOME}/standalone/deployments/
 RUN mv sigawf.war ${JBOSS_HOME}/standalone/deployments/
+RUN mv sigasr.war ${JBOSS_HOME}/standalone/deployments/
+RUN mv sigagc.war ${JBOSS_HOME}/standalone/deployments/
+RUN mv sigatp.war ${JBOSS_HOME}/standalone/deployments/
 
 #--- ou copie diretamente do diretório siga-docker para fins de debug
 #COPY --chown=jboss ./*.war ${JBOSS_HOME}/standalone/deployments/
