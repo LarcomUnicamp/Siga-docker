@@ -18,27 +18,22 @@ RUN sudo apk --update --no-cache add busybox-extras tzdata git maven
 #--- SET TIMEZONE
 RUN sudo sh -c "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone"
 
+#--- APT-GET GRAPHVIZ
+RUN sudo apk add --update --no-cache graphviz ttf-freefont
+#RUN sudo yum -y install graphviz
+
 #--- DOWNLOAD LATEST VERSION FROM GITHUB
 RUN echo "downloading ckeditor.war" && curl -s  https://api.github.com/repos/LarcomUnicamp/Siga-docker/releases/latest | grep browser_download_url | grep .war | cut -d '"' -f 4 | xargs wget -q
 
 #--- DEPLOY DO ARQUIVO .WAR ---
 RUN mv ckeditor.war ${JBOSS_HOME}/standalone/deployments/
 
-#--- APT-GET GRAPHVIZ
-RUN sudo apk add --update --no-cache graphviz ttf-freefont
-#RUN sudo yum -y install graphviz
-
 #--- CLONE FROM BRANCH
 RUN echo 'Clone apartir do branch' ${BRANCH}
 RUN git clone https://github.com/LarcomUnicamp/siga-doc-larcom.git -b ${BRANCH}
 ADD https://api.github.com/repos/LarcomUnicamp/siga-doc-larcom/commits/${BRANCH}?per_page=1 /tmp/last_commit
 RUN cd siga-doc-larcom  && git pull
 
-#--- CLONE FROM BRANCH
-RUN echo 'Clone apartir do branch' ${BRANCH}
-RUN git clone https://github.com/LarcomUnicamp/siga-doc-larcom.git -b ${BRANCH}
-ADD https://api.github.com/repos/LarcomUnicamp/siga-doc-larcom/commits/${BRANCH}?per_page=1 /tmp/last_commit
-RUN cd siga-doc-larcom  && git pull
 
 #--- BUILD ARTIFACTS
 RUN  cd siga-doc-larcom &&  mvn clean package -T 1C -DskipTests=true
@@ -53,8 +48,6 @@ RUN cd siga-doc-larcom  && \
    mv target/sigatp.war ${JBOSS_HOME}/standalone/deployments/
 
 #--- ou copie diretamente do diretÃ³rio siga-docker para fins de debug
-# COPY --chown=jboss ./*.war ${JBOSS_HOME}/standalone/deployments/
-#--- ou copie diretamente do diretório siga-docker para fins de debug
 # COPY --chown=jboss ./*.war ${JBOSS_HOME}/standalone/deployments/
 
 #--- COPIANDO standalone.xml ---
