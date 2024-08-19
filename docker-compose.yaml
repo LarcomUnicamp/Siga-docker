@@ -1,26 +1,26 @@
-version: "3.8"
+version: "3.3"
 
 services:
   appserver:
     user: root
     container_name: appserver
-    build: .
+    build:
+      context: .
+      args:
+        BRANCH: ${BRANCH:-master}
     depends_on:
       - mysqlserver
       - redisserver
-    command: ["bin/wait-for-it.sh mysqlserver:3306 -t 120 && jboss-eap-7.2/bin/standalone.sh"] 
-    expose:
-      - "6789"  
+    command: ["bin/wait-for-it.sh mysqlserver:3306 -t 120 && jboss-eap-7.2/bin/standalone.sh"]
     ports:
-      #- DEFINIR AS PORTAS DO SERVIDOR  
-      - "6789:8080"
       - "8080:8080"
+      - "8043:8443"
       #- "9990:9990"
       #- "8787:8787"
     environment:
       TZ: "America/Sao_Paulo"
       JBOSS_USER: "root"
-      JAVA_OPTS: "%JAVA_OPTS% -Xms1024m -Xmx3072m"
+      JAVA_OPTS: "%JAVA_OPTS% -Xms1024m -Xmx8192m"
     volumes:
       - log-volume:/var/log
       - tmp-volume:/var/tmp/siga
@@ -30,6 +30,7 @@ services:
   mysqlserver:
     container_name: mysqlserver
     image: mysql:8.0.21
+    #command: --max_allowed_packet=104857600
     restart: always
     expose:
       - "3306"
@@ -40,61 +41,14 @@ services:
       MYSQL_ROOT_PASSWORD: "siga"
       MYSQL_ROOT_HOST: "%"
     volumes:
-     - ./mysql-init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - siga
-    #   - mysql-volume:/var/lib/mysql
-
-  assijus:
-    build: ./assijus
-    ports:
-      - "8280:8080"
-      - "8243:8443"
-
-    volumes:
-      - log-volume01:/var/log
-    links:
-      - bluc
-    environment:
-      PROP_ASSIJUS_REDIS_MASTER_HOST: redisserver
-      PROP_ASSIJUS_REDIS_MASTER_PORT: 6379
-      PROP_ASSIJUS_REDIS_SLAVE_HOST:
-      PROP_ASSIJUS_REDIS_SLAVE_PORT:
-      PROP_ASSIJUS_REDIS_PASSWORD: ***RANDOM_GUID_REDIS***
-      PROP_ASSIJUS_REDIS_DATABASE: 1
-      PROP_ASSIJUS_BLUCSERVICE_URL: http://bluc:8080/blucservice/api/v1
-      PROP_ASSIJUS_POPUP_URLS: https://sigadoc.riopreto.sp.gov.br
-      PROP_ASSIJUS_SYSTEMS: siga
-      PROP_ASSIJUS_TESTSIGNER_URL: http://testsigner:8080/testsigner/api/v1
-      PROP_ASSIJUS_TESTSIGNER_PASSWORD: ***RANDOM_GUID_TESTSIGNER***
-      PROP_ASSIJUS_TIMESTAMP_PUBLIC_KEY: ***RANDOM_GUID***
-      PROP_ASSIJUS_TIMESTAMP_PRIVATE_KEY: ***RANDOM_GUID***
-    networks:
-      - siga
-      
-  bluc:
-    build: ./blucservice
-    ports:
-      - "5003:8080"
-    volumes:
-      - log-volume01:/var/log
-    networks:
-      - siga
-
-  testsigner:
-    build: ./testsigner
-    ports:
-      - "5004:8080"
-    volumes:
-      - log-volume01:/var/log
-    environment:
-      PROP_TESTSIGNER_PASSWORD: ***RANDOM_GUID_TESTSIGNER***
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /data/mysqlserver-sigadoc:/var/lib/mysql
     networks:
       - siga
 
   redisserver:
     container_name: redisserver
-    command: redis-server --requirepass ***RANDOM_GUID_REDIS***
+    command: redis-server --requirepass 9ca3485d-32d6-491b-aeac-7a9c5c30be8f
     image: redis:alpine
     expose:
       - "6379"
@@ -103,11 +57,87 @@ services:
     networks:
       - siga
 
+  assijus:
+    container_name: assijus
+    build: ./assijus
+    ports:
+      - "8280:8080"
+      - "8243:8443"
+    volumes:
+      - log-volume01:/var/log
+    links:
+      - bluc
+    environment:
+      TZ: "America/Sao_Paulo"
+      PROP_ASSIJUS_REDIS_MASTER_HOST: redisserver
+      PROP_ASSIJUS_REDIS_MASTER_PORT: 6379
+      PROP_ASSIJUS_REDIS_SLAVE_HOST:
+      PROP_ASSIJUS_REDIS_SLAVE_PORT:
+      PROP_ASSIJUS_REDIS_PASSWORD: 9ca3485d-32d6-491b-aeac-7a9c5c30be8f
+      PROP_ASSIJUS_REDIS_DATABASE: 1
+      PROP_ASSIJUS_BLUCSERVICE_URL: http://bluc:8080/blucservice/api/v1
+      PROP_ASSIJUS_POPUP_URLS: https://sigadoc.riopreto.sp.gov.br
+      PROP_ASSIJUS_SYSTEMS: siga
+      PROP_ASSIJUS_SIGA_URL: https://sigadoc.riopreto.sp.gov.br/sigaex/public/app/assinador-externo
+      PROP_ASSIJUS_SIGA_PASSWORD: 9ca3485d-32d6-491b-aeac-7a9c5c30be8f
+      PROP_ASSIJUS_KEYVALUE_URL: https://assijus.riopreto.sp.gov.br/assijus/api/v1
+      PROP_ASSIJUS_PASSWORD: 9ca3485d-32d6-491b-aeac-7a9c5c30be8f
+      PROP_ASSIJUS_TESTSIGNER_URL: http://testsigner:8080/testsigner/api/v1
+      PROP_ASSIJUS_TESTSIGNER_PASSWORD: 9ca3485d-32d6-491b-aeac-7a9c5c30be8f
+      PROP_ASSIJUS_TIMESTAMP_ISSUER: https://assijus.riopreto.sp.gov.br/assijus/api/v1/timestamp
+      PROP_ASSIJUS_TIMESTAMP_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAop3qflUUnVVqYJI34tB40DgBskgem+K9r6E8+laAlGfUW4SyZ/BdVXPpMykxt1WT+O+hYixiyf6qgHgYwxQoK6gi3ce4YdOXCzC6+kDaKrw67gYX8mTBtMMi2k+3f8Ylj+K9NPAN2dNjqvm62Wbp055Ew7nG3ygqou/KOkkm2oH8GZPnrYVhoihP7hirR66FkV/sLrLgw5kBurLk6wZQlRNVpkTV2w4+RtufwFbpoLPDkO2FitBv5kzu4YYlL3M9W38tFOmm3iaDGMW26PXu2GSFoOQ2XU1DccS5CYrH3gsBmO5mk7vZZQdHwWGIMIlMn2NVhcIsplJrCUClv0T1PQIDAQAB
+      PROP_ASSIJUS_TIMESTAMP_PRIVATE_KEY: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCinep+VRSdVWpgkjfi0HjQOAGySB6b4r2voTz6VoCUZ9RbhLJn8F1Vc+kzKTG3VZP476FiLGLJ/qqAeBjDFCgrqCLdx7hh05cLMLr6QNoqvDruBhfyZMG0wyLaT7d/xiWP4r008A3Z02Oq+brZZunTnkTDucbfKCqi78o6SSbagfwZk+ethWGiKE/uGKtHroWRX+wusuDDmQG6suTrBlCVE1WmRNXbDj5G25/AVumgs8OQ7YWK0G/mTO7hhiUvcz1bfy0U6abeJoMYxbbo9e7YZIWg5DZdTUNxxLkJisfeCwGY7maTu9llB0fBYYgwiUyfY1WFwiymUmsJQKW/RPU9AgMBAAECggEAeCjL3vGrO96jrhwdI4H744+e4UedJn7SvvYbgrdsZzyZk85nrZnUvZHanS0xSVD4+BbJXyuBC9Ub07XqRiucyzWAHfS378FTeLdXUhednbpcqQjjpP6Ci7ktBbel1cpqcvmN6ZIAChbDLNE/GemLmgz2rtGVe8vIRYF+Irdu+EGpBNhezlb4G7jxb1vazUD8GUjk42/XsSKKqJtMaLqTmYa/juiKxcTXliSNS7MBz0JNg84gkeeb9bIzzxlpJaZ+wjM7kM0Zt9e5as05k8GCIK4N/rf9+kDxIF+S/EqbDyqlCoPfgFs+Ehf4XKF8I+eFEDfRbrNWnQPqWtnyh16hgQKBgQDidFlFvmE40hUMo2evme/phgGyT625EyH70tYxCvZ0/C58WzIVre4gDqvLVk7o8JuXxehwVg5EGAxE2MdTguYiKYENw2fTOwF1po4Sd4zQFfel8hoeXBQcpIAgmUujedoyTsdmVWkkXKok9JffjNk6gUqzYlVOxWeqDiKAVg7PLQKBgQC31V7Qi8dpg87O54hRtDddg+dYHki7Caf3PuXdKXl31NnDQuOr6sW7+2nYiUhvpfnCbyeG8s3gPsyuzmMxja4vvBA2tI9764o07B5kdixZHtoeiL+aEgouBCBt33maT7ZwTBUUdR4+FMwYbMFoaaUMe88kuH+FVEjzVdTAuAwIUQKBgQCP9ufKLv4f4W8AWeHRAUxEaa0qbv1Ca6dvMNp60z1bofbrmA5/OdPpDWqqGnSQImbIVkkvIYZwQ9mI60fND6q+jSQ+W7vlzd1frkMj+lzK7SxDk2aHZoJiszHBh7NOemj9EpgxtprhQwfn9peWxzRSvV+AK0OQkG8W7WWBsTQ5AQKBgAYctwlSDHBKrJ6efh7RUiHu18tLPnnRiV8kHTpsPZipYBAo8i7uIGLuqgdEET99Ej/PuE25VvUEwYNyY0PrhQYbR6K6ACdLno3B6ATJFRJlfzUSsOQrg2EiS/27N2zVB6jWLsE+X6IKyPpq60dQc+dlWm7LH5pMQhytFuTNecDxAoGBALQd5onPJkIe0eyT46x8StEv8yokiezdMK6dPYa+A6sIIXc0QLmJQSYTJNj8tWFQR+E3QRk/UBQcdNxGDlSrkwNXPeVTjJsn+FR7h1z6b5pvG/4O6x3/lMcY0kO2VY6vbsXNL8QeGDcorJG48vL49PqzP3a8BnhVQILECGzotMBo
+    networks:
+      - siga
+
+  bluc:
+    container_name: bluc
+    build: ./blucservice
+    ports:
+      - "5003:8080"
+    volumes:
+      - log-volume02:/var/log
+    networks:
+      - siga
+
+  testsigner:
+    container_name: testsigner
+    build: ./testsigner
+    ports:
+      - "5004:8080"
+    volumes:
+      - log-volume03:/var/log
+    environment:
+      TZ: "America/Sao_Paulo"
+      PROP_TESTSIGNER_PASSWORD: 9ca3485d-32d6-491b-aeac-7a9c5c30be8f
+    networks:
+      - siga
+
+    phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    links:
+      - mysqlserver
+    ports:
+      - 8380:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTs=mysqlserver
+      - PMA_PORTS=3306
+      - MAX_EXECUTION_TIME=7200
+      - UPLOAD_LIMIT=100M
+      - HIDE_PHP_VERSION=true
+    networks:
+      - siga
+
 volumes:
   log-volume: {}
   log-volume01: {}
+  log-volume02: {}
+  log-volume03: {}
   tmp-volume: {}
   mysql-volume: {}
-
+        
 networks:
   siga:

@@ -38,47 +38,85 @@
     </extensions>
     <system-properties>
         
-		<property name="siga.ambiente" value="prod"/>
-		<property name="sigaex.autenticidade.url" value="URL/sigaex/public/app/autenticar"/>
-		<property name="sigaex.url" value="URL/sigaex"/>
-		<property name="sigaex.processo.autenticar.url" value="URL/sigaex/processoautenticar"/>
-		<property name="siga.base.teste" value="false"/>
-
         <property name="siga.jwt.secret" value="***RANDOM_GUID***"/>
         <property name="siga.sinc.password" value="***RANDOM_GUID***"/>
-      
+        <!-- <property name="sigaex.webdav.senha" value="***REPLACE-WITH-RANDOM-GUID***"/> (desabilitado porque estamos com problemas no we
+bdav) -->
 
-        <property name="siga.recaptcha.key" value="CHAVE PUBLICA"/>
-        <property name="siga.recaptcha.pwd" value="CHAVE PRIVADA"/>
+        <property name="siga.recaptcha.key" value="***RANDOM_GUID***"/>
+        <property name="siga.recaptcha.pwd" value="***RANDOM_GUID***"/>
 
-        <property name="siga.cabecalho.titulo" value="UNICAMP LARCOM"/>
-        <property name="siga.cabecalho.logo" value="/siga/imagens/brasao@2x-sjrp.png"/>
+        <property name="siga.versao.teste" value="false"/>
+        <property name="siga.base.teste" value="false"/>
+        <property name="siga.ambiente" value="prod"/>
+	    <!-- <property name="siga.base.url" value="https://sigadoc.riopreto.sp.gov.br"/> -->
+	    <property name="sigaex.assinatura.estampar" value="true"/>
 
-        <property name="sigaex.modelos.cabecalho.brasao" value="brasao@2x-sjrp.png"/>
-        <property name="sigaex.modelos.cabecalho.titulo" value="AMBIENTE TESTE"/>
+	
+	    <property name="sigaex.autenticidade.url" value="https://sigadoc.riopreto.sp.gov.br/sigaex/public/app/autenticar"/>
+        <property name="sigaex.url" value="https://sigadoc.riopreto.sp.gov.br/sigaex"/>
+        <property name="sigaex.processo.autenticar.url" value="https://sigadoc.riopreto.sp.gov.br/sigaex/processoautenticar"/>
+
+        <!-- Variaveis homologacao
+        <property name="sigaex.autenticidade.url" value="https://sigadoc-homolog-treinamento.tmobil.com.br/sigaex/public/app/autenticar"/>
+        <property name="sigaex.url" value="sigadoc-homolog-treinamento.tmobil.com.br/sigaex"/>
+        <property name="sigaex.processo.autenticar.url" value="sigadoc-homolog-treinamento.tmobil.com.br/sigaex/processoautenticar"/> -->
+
+        <!-- Variaveis Desenvolvimento 
+        <property name="sigaex.autenticidade.url" value="https://sigadoc-dev01.tmobil.com.br/sigaex/public/app/autenticar"/>
+        <property name="sigaex.url" value="sigadoc-dev01.tmobil.com.br/sigaex"/>
+        <property name="sigaex.processo.autenticar.url" value="sigadoc-dev01.tmobil.com.br/sigaex/processoautenticar"/>
+        -->
+    
+        <property name="siga.cabecalho.titulo" value="Prefeitura Municipal São José Rio Preto"/>
+        <property name="siga.cabecalho.logo" value="/siga/imagens/brasaosjrp.png"/>
+
+	    <property name="sigaex.modelos.cabecalho.brasao" value="contextpath/imagens/brasaosjrp.png"/>
+        <property name="sigaex.modelos.cabecalho.titulo" value="PODER EXECUTIVO"/>
         <property name="sigaex.modelos.cabecalho.subtitulo" value="SÃO JOSÉ DO RIO PRETO"/>
 
-        <property name="siga.relat.brasao" value="brasao@2x-sjrp.png"/>
-        <property name="siga.relat.titulo" value="AMBIENTE TESTE"/>
+	    <property name="siga.relat.brasao" value="brasaosjrp.png"/>
+        <property name="siga.relat.titulo" value="PODER EXECUTIVO"/>
         <property name="siga.relat.subtitulo" value="SÃO JOSÉ DO RIO PRETO"/>
+
+        <property name="sigaex.pdf.tamanho.maximo" value="26214400"/>
+        <property name="sigaex.qtd.max.arquivo.anexado.upload" value="20"/>
+        <property name="siga.armazenamento.arquivo.tamanhomax" value="26214400"/>
+	    <property name="siga.armazenamento.arquivo.formatolivre.tamanhomax" value="26214400"/>
 
         <property name="sigaex.carimbo.texto.superior" value="FOLHA"/>
 
         <property name="sigaex.redis.database" value="1"/>
         <property name="sigaex.redis.master.host" value="redisserver"/>
         <property name="sigaex.redis.master.port" value="6379"/>
-        <property name="sigaex.redis.password" value="***RANDOM_GUID_REDIS***"/>
+        <property name="sigaex.redis.password" value="***RANDOM_GUID***"/>
         <property name="sigaex.redis.slave.host" value="redisserver"/>
-        <property name="sigaex.redis.slave.port" value="6379"/>
-	
-        <property name="siga.smtp" value="***servidor_de_email****"/>
+	    <property name="sigaex.redis.slave.port" value="6379"/>
+
+        <property name="assijus.redis.master.host" value="redisserver"/>
+        <property name="assijus.redis.master.port" value="6379"/>
+        <property name="assijus.redis.database" value="1"/>
+        <property name="assijus.blucservice.url" value="http://bluc:8080/blucservice/api/v1"/>
+        <property name="assijus.popup.urls" value="https://sigadoc.riopreto.sp.gov.br"/>
+        <property name="assijus.systems" value="siga"/>
+        <property name="assijus.siga.url" value="https://sigadoc.riopreto.sp.gov.br"/>
+        <property name="assijus.siga.password" value="***RANDOM_GUID***"/>
+        <property name="assijus.keyvalue.url" value="https://assijus.riopreto.sp.gov.br/assijus/api/v1"/>
+        <property name="assijus.keyvalue.password" value="***RANDOM_GUID***"/>
+        <property name="assijus.login.issuer" value="https://assijus.riopreto.sp.gov.br"/>
+        <property name="assijus.login.system" value="siga"/>
+        <property name="assijus.timestamp.issuer" value="https://assijus.riopreto.sp.gov.br/assijus/api/v1/timestamp"/>
+        <property name="assijus.timestamp.public.key" value="***RANDOM_GUID***"/>
+        <property name="assijus.timestamp.private.key" value="***RANDOM_GUID***"/>
+
+        <property name="siga.smtp" value="mail.sistemas.riopreto.sp.gov.br"/>
         <property name="siga.smtp.porta" value="587"/>
         <property name="siga.smtp.starttls.enable" value="true"/>
         <property name="siga.smtp.auth" value="true"/>
-        <property name="siga.smtp.auth.usuario" value="***usuario_servidor_email***"/>
-        <property name="siga.smtp.auth.senha" value="***senha_servidor_email***"/>
+        <property name="siga.smtp.auth.usuario" value="sigadoc@sistemas.riopreto.sp.gov.br"/>
+        <property name="siga.smtp.auth.senha" value="***RANDOM_GUID***"/>
         <property name="siga.smtp.debug" value="false"/>
-        <property name="siga.smtp.usuario.remetente" value="***remetente_servidor_email*****"/>
+	    <property name="siga.smtp.usuario.remetente" value="Administrador do Siga&lt;sigadoc@sistemas.riopreto.sp.gov>"/>
 
         <property name="siga.armazenamento.arquivo.tipo" value="TABELA"/>
         <property name="sigaex.upload.dir.temp" value="/tmp"/>
@@ -86,17 +124,15 @@
         <property name="siga.flyway.mysql.migrate" value="true"/>
         <property name="siga.hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 
-
-		<property name="sigaex.assinador.externo.popup.url" value="https://assijus.riopreto.sp.gov.br/assijus"/>
-        <property name="sigaex.assinador.externo.password" value="***RANDOM_GUID_ASSIJUS***"/>
-        <property name="sigaex.carimbo.sistema" value="siga-docker"/>
+        <property name="sigaex.assinador.externo.popup.url" value="https://assijus.riopreto.sp.gov.br/assijus"/>
+        <property name="sigaex.assinador.externo.password" value="***RANDOM_GUID***"/>
+        <property name="sigaex.carimbo.sistema" value="sigadoc.riopreto.sp.gov.br"/>
         <property name="sigaex.carimbo.url" value="https://assijus.riopreto.sp.gov.br/assijus/api/v1"/>
-        <property name="sigaex.carimbo.public.key" value="***PUBLIC_KEY_GUID***"/>
-		<property name="sigaex.carimbo.public.key" value="***PUBLIC_KEY_GUID***"/>
-		
-		<property name="ckeditor.url" value="/ckeditor/ckeditor/ckeditor.js"/>
-		
-  </system-properties>
+	    <property name="sigaex.carimbo.public.key" value="***RANDOM_GUID***"/>
+
+        <property name="ckeditor.url" value="/ckeditor/ckeditor/ckeditor.js"/>
+
+    </system-properties>
     <management>
         <security-realms>
             <security-realm name="ManagementRealm">
@@ -213,7 +249,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
                 <datasource jndi-name="java:/jboss/datasources/SigaCpDS" pool-name="SigaCpDS" enabled="true" spy="true">
-                    <connection-url>jdbc:mysql://url_servidor:3306/corporativo?noAccessToProcedureBodies=true</connection-url>
+                    <connection-url>jdbc:mysql://mysqlserver:3306/corporativo?noAccessToProcedureBodies=true</connection-url>
                     <driver>mysql.jar</driver>
                     <pool>
                         <min-pool-size>1</min-pool-size>
@@ -221,14 +257,14 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>LarcoM2023</password>
+                        <password>siga</password>
                     </security>
                     <timeout>
                         <idle-timeout-minutes>5</idle-timeout-minutes>
                     </timeout>
                 </datasource>
                 <datasource jndi-name="java:/jboss/datasources/SigaExDS" pool-name="SigaExDS" enabled="true" spy="true">
-                    <connection-url>jdbc:mysql://url_servidor:3306/siga?noAccessToProcedureBodies=true</connection-url>
+                    <connection-url>jdbc:mysql://mysqlserver:3306/siga?noAccessToProcedureBodies=true</connection-url>
                     <driver>mysql.jar</driver>
                     <pool>
                         <min-pool-size>1</min-pool-size>
@@ -236,14 +272,14 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>LarcoM2023</password>
+                        <password>siga</password>
                     </security>
                     <timeout>
                         <idle-timeout-minutes>5</idle-timeout-minutes>
                     </timeout>
                 </datasource>
                 <datasource jndi-name="java:/jboss/datasources/SigaWfDS" pool-name="SigaWfDS" enabled="true" spy="true">
-                    <connection-url>jdbc:mysql://url_servidor:3306/sigawf?noAccessToProcedureBodies=true</connection-url>
+                    <connection-url>jdbc:mysql://mysqlserver:3306/sigawf?noAccessToProcedureBodies=true</connection-url>
                     <driver>mysql.jar</driver>
                     <pool>
                         <min-pool-size>1</min-pool-size>
@@ -251,14 +287,14 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>LarcoM2023</password>
+                        <password>siga</password>
                     </security>
                     <timeout>
                         <idle-timeout-minutes>5</idle-timeout-minutes>
                     </timeout>
                 </datasource>
 				<datasource jndi-name="java:/jboss/datasources/SigaSrDS" pool-name="SigaSrDS" enabled="true" spy="true">
-                    <connection-url>jdbc:mysql://url_servidor:3306/sigasr?noAccessToProcedureBodies=true</connection-url>
+                    <connection-url>jdbc:mysql://mysqlserver:3306/sigasr?noAccessToProcedureBodies=true</connection-url>
                     <driver>mysql.jar</driver>
                     <pool>
                         <min-pool-size>1</min-pool-size>
@@ -266,14 +302,14 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>LarcoM2023</password>
+                        <password>siga</password>
                     </security>
                     <timeout>
                         <idle-timeout-minutes>5</idle-timeout-minutes>
                     </timeout>
                 </datasource>
 				<datasource jndi-name="java:/jboss/datasources/SigaGcDS" pool-name="SigaGcDS" enabled="true" spy="true">
-                    <connection-url>jdbc:mysql://url_servidor:3306/sigagc?noAccessToProcedureBodies=true</connection-url>
+                    <connection-url>jdbc:mysql://mysqlserver:3306/sigagc?noAccessToProcedureBodies=true</connection-url>
                     <driver>mysql.jar</driver>
                     <pool>
                         <min-pool-size>1</min-pool-size>
@@ -281,14 +317,14 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>LarcoM2023</password>
+                        <password>siga</password>
                     </security>
                     <timeout>
                         <idle-timeout-minutes>5</idle-timeout-minutes>
                     </timeout>
                 </datasource>
 				<datasource jndi-name="java:/jboss/datasources/SigaTpDS" pool-name="SigaTpDS" enabled="true" spy="true">
-                    <connection-url>jdbc:mysql://url_servidor:3306/sigatp?noAccessToProcedureBodies=true</connection-url>
+                    <connection-url>jdbc:mysql://mysqlserver:3306/sigatp?noAccessToProcedureBodies=true</connection-url>
                     <driver>mysql.jar</driver>
                     <pool>
                         <min-pool-size>1</min-pool-size>
@@ -296,7 +332,7 @@
                     </pool>
                     <security>
                         <user-name>root</user-name>
-                        <password>LarcoM2023</password>
+                        <password>siga</password>
                     </security>
                     <timeout>
                         <idle-timeout-minutes>5</idle-timeout-minutes>
@@ -614,8 +650,8 @@
         <subsystem xmlns="urn:jboss:domain:undertow:7.0" default-server="default-server" default-virtual-host="default-host" default-servlet-container="default" default-security-domain="other">
             <buffer-cache name="default"/>
             <server name="default-server">
-                <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
-                <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
+                <http-listener name="default" max-post-size="26214400" socket-binding="http" redirect-socket="https" enable-http2="true"/>
+                <https-listener name="https" max-post-size="26214400" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker security-realm="ApplicationRealm"/>
